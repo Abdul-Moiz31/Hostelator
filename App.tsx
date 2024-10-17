@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { ClerkProvider } from '@clerk/clerk-expo';
+import AppNavigator from './src/navigation/AppNavigator';
+
+const CLERK_PUBLISHABLE_KEY = 'your_clerk_publishable_key_here';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </ClerkProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
