@@ -1,5 +1,5 @@
 {
-  "name": "hostellocatorapp",
+  "name": "hostelator",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -15,9 +15,11 @@
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
+    "escape-string-regexp": "^5.0.0",
     "expo": "^51.0.38",
     "expo-auth-session": "~5.5.2",
     "expo-blur": "~13.0.2",
+    "expo-image-picker": "~15.0.7",
     "expo-linear-gradient": "~13.0.2",
     "expo-secure-store": "~13.0.2",
     "expo-status-bar": "~1.12.1",

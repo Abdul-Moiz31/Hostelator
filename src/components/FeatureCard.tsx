@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface FeatureCardProps {
   icon: keyof typeof Ionicons.glyphMap;
+  
   title: string;
   description: string;
 }
