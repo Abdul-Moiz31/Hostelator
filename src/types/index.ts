@@ -7,13 +7,16 @@ export type RootStackParamList = {
   UniversityDetails: { universityId: string };
   Map: { address?: string };
   HostleDetails: { hostelId: string };
+  Dashboard: undefined;
+  EditedHostel: undefined;
 };
 
 export type MainTabParamList = {
   Home: undefined;
   About: undefined;
-  "Find Room": undefined;
+  "Find Hostel": undefined;
   "List Room": undefined;
+  Dashboard: undefined;
   Front: undefined;
   Map: { address?: string };
   HostleDetails: { hostelId: string };
