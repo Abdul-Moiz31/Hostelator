@@ -1,22 +1,34 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BlurView } from 'expo-blur';
-import HomeScreen from '../screens/HomeScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import SignInScreen from '../screens/SignInScreen';
-import AboutScreen from '../screens/AboutScreen';
-import FindRoomScreen from '../screens/FindRoomScreen';
-import ListRoomScreen from '../screens/ListRoomScreen';
-import { RootStackParamList, MainTabParamList } from '../types';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BlurView } from "expo-blur";
+import HomeScreen from "../screens/HomeScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+import SignInScreen from "../screens/SignInScreen";
+import AboutScreen from "../screens/AboutScreen";
+import Front from "../screens/Front";
+import FindRoomScreen from "../screens/FindRoomScreen";
+import ListRoomScreen from "../screens/ListRoomScreen";
+import { RootStackParamList, MainTabParamList } from "../types";
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const CustomHeader = ({ title, navigation }) => {
+interface CustomHeaderProps {
+  title: string;
+  navigation: any;
+}
+
+const CustomHeader: React.FC<CustomHeaderProps> = ({ title, navigation }) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -24,7 +36,7 @@ const CustomHeader = ({ title, navigation }) => {
       <Text style={styles.headerTitle}>{title}</Text>
       <TouchableOpacity
         style={styles.headerButton}
-        onPress={() => navigation.navigate('SignIn')}
+        onPress={() => navigation.navigate("SignIn")}
       >
         <Ionicons name="person-circle-outline" size={24} color="#3498db" />
       </TouchableOpacity>
@@ -32,11 +44,20 @@ const CustomHeader = ({ title, navigation }) => {
   );
 };
 
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+
+const CustomTabBar = ({
+  state,
+  descriptors,
+  navigation,
+}: BottomTabBarProps) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <BlurView intensity={100} style={[styles.tabBar, { paddingBottom: insets.bottom }]}>
+    <BlurView
+      intensity={100}
+      style={[styles.tabBar, { paddingBottom: insets.bottom }]}
+    >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel || options.title || route.name;
@@ -44,7 +65,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         const onPress = () => {
           const event = navigation.emit({
-            type: 'tabPress',
+            type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
@@ -55,16 +76,18 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         };
 
         let iconName: keyof typeof Ionicons.glyphMap;
-        if (route.name === 'Home') {
-          iconName = isFocused ? 'home' : 'home-outline';
-        } else if (route.name === 'About') {
-          iconName = isFocused ? 'information-circle' : 'information-circle-outline';
-        } else if (route.name === 'Find Room') {
-          iconName = isFocused ? 'search' : 'search-outline';
-        } else if (route.name === 'List Room') {
-          iconName = isFocused ? 'add-circle' : 'add-circle-outline';
+        if (route.name === "Home") {
+          iconName = isFocused ? "home" : "home-outline";
+        } else if (route.name === "About") {
+          iconName = isFocused
+            ? "information-circle"
+            : "information-circle-outline";
+        } else if (route.name === "Find Room") {
+          iconName = isFocused ? "search" : "search-outline";
+        } else if (route.name === "List Room") {
+          iconName = isFocused ? "add-circle" : "add-circle-outline";
         } else {
-          iconName = 'help-circle-outline';
+          iconName = "help-circle-outline";
         }
 
         return (
@@ -77,9 +100,18 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
             style={styles.tabItem}
           >
-            <Ionicons name={iconName} size={24} color={isFocused ? '#3498db' : '#8e8e93'} />
-            <Text style={[styles.tabLabel, { color: isFocused ? '#3498db' : '#8e8e93' }]}>
-              {label}
+            <Ionicons
+              name={iconName}
+              size={24}
+              color={isFocused ? "#3498db" : "#8e8e93"}
+            />
+            <Text
+              style={[
+                styles.tabLabel,
+                { color: isFocused ? "#3498db" : "#8e8e93" },
+              ]}
+            >
+              {typeof label === "string" ? label : ""}
             </Text>
           </TouchableOpacity>
         );
@@ -100,6 +132,7 @@ function MainTabs() {
       <Tab.Screen name="Find Room" component={FindRoomScreen} />
       <Tab.Screen name="List Room" component={ListRoomScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
+      {/* <Tab.Screen name="Front" component={Front} /> */}
     </Tab.Navigator>
   );
 }
@@ -108,32 +141,41 @@ export default function AppNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: ({ route, options, navigation }) => {
-          const title = options.headerTitle || options.title || route.name;
-          return <CustomHeader title={title} navigation={navigation} />;
-        },
-        cardStyle: { backgroundColor: '#f0f0f0' },
+        cardStyle: { backgroundColor: "#f0f0f0" },
+        headerShown: false,
       }}
     >
+      {/* Splash Screen */}
+      <Stack.Screen
+        name="Front"
+        component={Front}
+        options={{ headerShown: false }}
+      />
+
+      {/* Main Tabs */}
       <Stack.Screen
         name="Main"
         component={MainTabs}
         options={{ headerShown: false }}
       />
+
+      {/* Sign Up Screen */}
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
         options={{
-          headerTitle: 'Create Account',
-          headerBackTitle: 'Back',
+          headerTitle: "Create Account",
+          headerBackTitle: "Back",
         }}
       />
+
+      {/* Sign In Screen */}
       <Stack.Screen
         name="SignIn"
         component={SignInScreen}
         options={{
-          headerTitle: 'Sign In',
-          headerBackTitle: 'Back',
+          headerTitle: "Sign In",
+          headerBackTitle: "Back",
         }}
       />
     </Stack.Navigator>
@@ -142,33 +184,34 @@ export default function AppNavigator() {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingBottom: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: "#e0e0e0",
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   headerButton: {
     padding: 8,
   },
   tabBar: {
-    flexDirection: 'row',
+    flexDirection: "row",
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    backgroundColor: Platform.OS === 'ios' ? 'rgba(255, 255, 255, 0.8)' : 'white',
+    borderTopColor: "#e0e0e0",
+    backgroundColor:
+      Platform.OS === "ios" ? "rgba(255, 255, 255, 0.8)" : "white",
   },
   tabItem: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 10,
   },
   tabLabel: {
