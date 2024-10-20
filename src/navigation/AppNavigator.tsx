@@ -18,6 +18,7 @@ import AboutScreen from "../screens/AboutScreen";
 import Front from "../screens/Front";
 import FindRoomScreen from "../screens/FindRoomScreen";
 import ListRoomScreen from "../screens/ListRoomScreen";
+import MapViewScreen from "../screens/MapViewScreen";
 import { RootStackParamList, MainTabParamList } from "../types";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -45,6 +46,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ title, navigation }) => {
 };
 
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import HostelDetailsScreen from "../screens/HostleDetailsScreen";
 
 const CustomTabBar = ({
   state,
@@ -132,6 +134,7 @@ function MainTabs() {
       <Tab.Screen name="Find Room" component={FindRoomScreen} />
       <Tab.Screen name="List Room" component={ListRoomScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
+      
       {/* <Tab.Screen name="Front" component={Front} /> */}
     </Tab.Navigator>
   );
@@ -176,6 +179,28 @@ export default function AppNavigator() {
         options={{
           headerTitle: "Sign In",
           headerBackTitle: "Back",
+        }}
+      />
+
+      {/* Map Screen */}
+      <Stack.Screen
+        name="Map"
+        component={MapViewScreen}
+        options={{
+          header: ({ navigation }) => (
+            <CustomHeader title="Map" navigation={navigation} />
+          ),
+        }}
+      />
+
+      {/* Hostle Details Screen */}
+      <Stack.Screen
+        name="HostelDetails"
+        component={HostelDetailsScreen}
+        options={{
+          header: ({ navigation }) => (
+            <CustomHeader title="Hostel Details" navigation={navigation} />
+          ),
         }}
       />
     </Stack.Navigator>

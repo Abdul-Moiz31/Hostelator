@@ -5,6 +5,8 @@ export type RootStackParamList = {
   Front: undefined;
   HostelDetails: { hostelId: string };
   UniversityDetails: { universityId: string };
+  Map: { address?: string };
+  HostleDetails: { hostelId: string };
 };
 
 export type MainTabParamList = {
@@ -13,6 +15,8 @@ export type MainTabParamList = {
   "Find Room": undefined;
   "List Room": undefined;
   Front: undefined;
+  Map: { address?: string };
+  HostleDetails: { hostelId: string };
 };
 
 export interface Room {
