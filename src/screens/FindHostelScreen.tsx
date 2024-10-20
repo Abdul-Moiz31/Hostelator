@@ -278,7 +278,7 @@ export default function FindRoomScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient colors={["#3498db", "#2980b9"]} style={styles.header}>
-        <Text style={styles.headerTitle}>Find Your Perfect Room</Text>
+        <Text style={styles.headerTitle}>Find Your Perfect Hostel</Text>
         <View style={styles.searchContainer}>
           <Ionicons
             name="search"
@@ -313,7 +313,7 @@ export default function FindRoomScreen() {
             Price
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[
             styles.sortButton,
             sortBy === "rating" && styles.sortButtonActive,
@@ -328,7 +328,7 @@ export default function FindRoomScreen() {
           >
             Rating
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       {loading ? (
         <ActivityIndicator size="large" color="#3498db" style={styles.loader} />
