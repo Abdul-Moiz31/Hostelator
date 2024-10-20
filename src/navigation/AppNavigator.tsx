@@ -16,8 +16,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import SignInScreen from "../screens/SignInScreen";
 import AboutScreen from "../screens/AboutScreen";
 import Front from "../screens/Front";
-import FindRoomScreen from "../screens/FindRoomScreen";
-import ListRoomScreen from "../screens/ListRoomScreen";
+import FindRoomScreen from "../screens/FindHostelScreen";
 import MapViewScreen from "../screens/MapViewScreen";
 import { RootStackParamList, MainTabParamList } from "../types";
 
@@ -47,6 +46,9 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ title, navigation }) => {
 
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import HostelDetailsScreen from "../screens/HostleDetailsScreen";
+import DashboardScreen from "../screens/DashboardScreen";
+import DashboardStack from "./DashboardStack";
+import FindHostelScreen from "../screens/FindHostelScreen";
 
 const CustomTabBar = ({
   state,
@@ -131,9 +133,9 @@ function MainTabs() {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Find Room" component={FindRoomScreen} />
-      <Tab.Screen name="List Room" component={ListRoomScreen} />
+      <Tab.Screen name="Find Hostel" component={FindHostelScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
+      <Tab.Screen name="Dashboard" component={DashboardStack} />
       
       {/* <Tab.Screen name="Front" component={Front} /> */}
     </Tab.Navigator>
@@ -193,7 +195,7 @@ export default function AppNavigator() {
         }}
       />
 
-      {/* Hostle Details Screen */}
+      {/* Hostel Details Screen */}
       <Stack.Screen
         name="HostelDetails"
         component={HostelDetailsScreen}
